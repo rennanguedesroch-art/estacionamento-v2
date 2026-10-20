@@ -98,7 +98,7 @@ export default function Home() {
             <a href="/reservar" className="bg-signal text-asphalt font-bold px-6 py-3 rounded-sm hover:bg-signal-bright transition-colors">
               Reservar vaga
             </a>
-            <Link href="/minhas-reservas" className="border border-white/20 hover:border-signal text-white font-semibold px-6 py-3 rounded transition">
+            <Link href="/login" className="border border-white/20 hover:border-signal text-white font-semibold px-6 py-3 rounded transition">
               Área do Cliente
             </Link>
           </div> 
@@ -349,6 +349,7 @@ export default function Home() {
               <li><a href="#precos" className="hover:text-signal">Preços</a></li>
               <li><a href="#faq" className="hover:text-signal">Dúvidas</a></li>
               <li><a href="/reservar" className="hover:text-signal">Reservar vaga</a></li>
+              <li><a href="/login" className="hover:text-signal">Área do Cliente</a></li>
             </ul>
           </div>
           <div>

@@ -97,6 +97,10 @@ export default function Home() {
             <a href="/reservar" className="bg-signal text-asphalt font-bold px-6 py-3 rounded-sm hover:bg-signal-bright transition-colors">
               Reservar vaga
             </a>
+            <Link href="/minhas-reservas" className="border border-white/20 hover:border-signal text-white font-semibold px-6 py-3 rounded transition">
+              Área do Cliente
+            </Link>
+          </div> 
             <a
               href={`https://wa.me/${WHATSAPP}?text=${mensagemWhatsapp}`}
               target="_blank"

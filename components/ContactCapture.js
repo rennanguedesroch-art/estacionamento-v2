@@ -26,7 +26,7 @@ export default function ContactCapture() {
 
     const nome = form.nome.trim();
     const telefone = form.telefone.trim();
-    const digitos = telefone.replace(/\\D/g, '');
+    const digitos = telefone.replace(/\D/g, '');
 
     if (nome.length < 2) {
       setStatus({ tipo: 'erro', texto: 'Informe seu nome completo.' });
@@ -38,22 +38,25 @@ export default function ContactCapture() {
     }
 
     setEnviando(true);
-    const { error } = await supabase.from('site_leads').insert({
-      nome,
-      telefone,
-      veiculo: form.veiculo.trim() || null,
-      interesse: form.interesse,
-      consentimento: true,
-    });
-    setEnviando(false);
-
-    if (error) {
-      setStatus({ tipo: 'erro', texto: 'Não foi possível enviar agora. Tente novamente ou fale conosco pelo WhatsApp.' });
-      return;
+    try {
+      const { error } = await supabase.from('site_leads').insert({
+        nome,
+        telefone,
+        veiculo: form.veiculo.trim() || null,
+        interesse: form.interesse,
+        consentimento: true,
+      });
+      if (error) {
+        setStatus({ tipo: 'erro', texto: 'Não foi possível enviar agora. Tente novamente ou fale conosco pelo WhatsApp.' });
+        return;
+      }
+      setForm({ nome: '', telefone: '', veiculo: '', interesse: '' });
+      setStatus({ tipo: 'sucesso', texto: 'Recebemos seu contato. A equipe do Valent poderá falar com você pelo WhatsApp.' });
+    } catch {
+      setStatus({ tipo: 'erro', texto: 'Não foi possível conectar ao cadastro. Tente novamente mais tarde.' });
+    } finally {
+      setEnviando(false);
     }
-
-    setForm({ nome: '', telefone: '', veiculo: '', interesse: '' });
-    setStatus({ tipo: 'sucesso', texto: 'Recebemos seu contato. A equipe do Valent poderá falar com você pelo WhatsApp.' });
   }
 
   const campo = 'w-full min-h-12 bg-asphalt-soft border border-asphalt-line rounded-sm px-4 py-3 text-chalk focus:border-signal outline-none';

@@ -3,7 +3,7 @@
 Sistema web para o **Valent Estacionamentos** (R. Cavour, 329 — Vila Prudente, São Paulo),
 desenvolvido como Projeto em Sistemas.
 
-🔗 **Site publicado:** _(coloque aqui o link do Vercel)_
+🔗 **Site publicado:** https://estacionamento-v2.vercel.app
 🎥 **Vídeo de apresentação:** _(coloque aqui o link do YouTube)_
 
 ## Integrantes do grupo
@@ -48,10 +48,9 @@ sem duplicar o que já existe.
 
 ## Deploy na Vercel
 
-1. Suba o projeto pro GitHub
-2. Importe o repositório na Vercel
-3. Em Environment Variables, adicione `NEXT_PUBLIC_SUPABASE_URL` e `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-4. Deploy
+O projeto está conectado ao GitHub e publicado em https://estacionamento-v2.vercel.app.
+As variáveis `NEXT_PUBLIC_SUPABASE_URL` e `NEXT_PUBLIC_SUPABASE_ANON_KEY` estão
+configuradas na Vercel para Production e Preview.
 
 ## Estrutura
 

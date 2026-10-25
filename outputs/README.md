@@ -17,5 +17,11 @@ As variáveis `NEXT_PUBLIC_SUPABASE_URL` e `NEXT_PUBLIC_SUPABASE_ANON_KEY` devem
 - `index.html` — landing page e formulário.
 - `assets/` — fotos fornecidas para o projeto.
 - `api/clientes.js` — endpoint seguro de cadastro.
+- `admin.html` — painel protegido para consultar cadastros em `/admin`.
+- `api/config.js` — fornece ao navegador somente a URL e a chave pública do Supabase.
 - `supabase/schema.sql` — estrutura e política RLS do cadastro.
+
+## Acesso administrativo
+
+O usuário precisa ter uma conta no Supabase Auth e ser incluído por um responsável na tabela privada `public.site_admins`. O painel não cria administradores nem permite alteração ou exclusão dos cadastros. A RLS autoriza a leitura de `site_leads` apenas para membros dessa tabela.
 

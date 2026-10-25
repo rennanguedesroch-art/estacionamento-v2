@@ -17,3 +17,22 @@ drop policy if exists "Anon envia interesse pelo site" on public.site_leads;
 create policy "Anon envia interesse pelo site" on public.site_leads
   for insert to anon with check (consentimento is true);
 
+-- A área /admin é somente para usuários inseridos nesta lista por um administrador.
+create table if not exists public.site_admins (
+  user_id uuid primary key references auth.users(id) on delete cascade,
+  criado_em timestamptz not null default now()
+);
+alter table public.site_admins enable row level security;
+revoke all on table public.site_admins from public, anon, authenticated;
+grant select on table public.site_admins to authenticated;
+drop policy if exists "Admin consulta propria permissao" on public.site_admins;
+create policy "Admin consulta propria permissao" on public.site_admins
+  for select to authenticated using (user_id = auth.uid());
+
+grant select on table public.site_leads to authenticated;
+drop policy if exists "Admins consultam cadastros do site" on public.site_leads;
+create policy "Admins consultam cadastros do site" on public.site_leads
+  for select to authenticated using (
+    exists (select 1 from public.site_admins where site_admins.user_id = auth.uid())
+  );
+

@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10110e">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Área administrativa | Valent Estacionamentos</title>
+  <style>
+    :root{color-scheme:dark;--bg:#10110e;--panel:#191a16;--panel2:#20211c;--ink:#f5f3e9;--muted:#a9aa9e;--yellow:#f3e342;--line:#34352c;--green:#c4eb70;--red:#ff9b82}*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 80% 0%,#f3e34212,transparent 36%),var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}a{color:inherit}.shell{width:min(1120px,calc(100% - 32px));margin:0 auto}.top{height:76px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}.brand{text-decoration:none;display:flex;gap:10px;align-items:center;font-weight:800;letter-spacing:.02em}.mark{width:38px;height:38px}.brand small{display:block;color:var(--muted);font-size:.63rem;letter-spacing:.14em;text-transform:uppercase}.back{color:var(--muted);font-size:.88rem;text-decoration:none}.back:hover{color:var(--yellow)}main{padding:58px 0 88px}.eyebrow{color:var(--yellow);font-size:.72rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}.title{font-size:clamp(2rem,5vw,3.1rem);line-height:1.05;letter-spacing:-.055em;margin:10px 0}.intro{color:var(--muted);max-width:680px;margin:0 0 28px}.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:clamp(20px,4vw,34px);box-shadow:0 24px 80px #0003}.login{max-width:500px;margin:42px auto}.login h2{margin:0 0 8px;font-size:1.3rem}.login p{color:var(--muted);font-size:.92rem;margin:0 0 22px}.field{display:grid;gap:7px;margin:16px 0}.field label{font-weight:650;font-size:.88rem}.field input,.search{height:50px;padding:0 14px;border:1px solid #45463a;border-radius:7px;background:#12130f;color:var(--ink);font:inherit;width:100%}.field input:focus,.search:focus{outline:2px solid var(--yellow);outline-offset:2px}.button{min-height:50px;padding:0 20px;border:0;border-radius:7px;background:var(--yellow);color:#16170e;font:700 1rem inherit;font-weight:750;cursor:pointer}.button:disabled{opacity:.6;cursor:wait}.button.secondary{background:transparent;color:var(--ink);border:1px solid var(--line)}.status{min-height:1.5em;margin:14px 0 0;font-size:.9rem;color:var(--muted)}.status.error{color:var(--red)}.status.success{color:var(--green)}.privacy{margin-top:18px;padding:14px 16px;border-left:3px solid var(--yellow);background:#f3e3420b;color:var(--muted);font-size:.84rem}.toolbar{display:flex;gap:12px;align-items:center;margin:22px 0}.toolbar .search{max-width:440px}.count{margin-left:auto;color:var(--muted);font-size:.9rem;white-space:nowrap}.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:10px}.table{width:100%;border-collapse:collapse;min-width:720px}.table th,.table td{text-align:left;padding:14px 16px;border-bottom:1px solid var(--line);vertical-align:top}.table th{color:var(--muted);font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;background:#ffffff04}.table tr:last-child td{border-bottom:0}.table td:first-child{font-weight:700}.table a{color:var(--yellow);text-underline-offset:3px}.interest{display:inline-flex;padding:4px 9px;border:1px solid #f3e34245;border-radius:999px;color:var(--yellow);font-size:.78rem;white-space:nowrap}.empty{padding:26px;color:var(--muted);text-align:center}.hidden{display:none!important}.dashboard-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px}.dashboard-head .button{min-width:112px}.footnote{color:var(--muted);font-size:.82rem;margin-top:15px}@media(max-width:640px){.top{height:66px}.brand{font-size:.9rem}.back{font-size:.8rem}main{padding:38px 0 64px}.toolbar{align-items:stretch;flex-wrap:wrap}.toolbar .search{max-width:none}.count{width:100%;margin:0}.dashboard-head{align-items:flex-start;flex-direction:column}.dashboard-head .button{width:100%}.card{border-radius:9px}.login{margin:28px auto}}
+    .button{font-family:inherit}
+  </style>
+</head>
+<body>
+  <header class="top"><div class="shell" style="display:flex;align-items:center;justify-content:space-between;width:100%"><a class="brand" href="/" aria-label="Valent Estacionamentos, voltar ao site"><svg class="mark" viewBox="0 0 48 48" aria-hidden="true"><path d="M7 7 24 39 41 7" fill="none" stroke="#f3e342" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><path d="m17 7 7 13 7-13" fill="none" stroke="#f5f3e9" stroke-width="2" stroke-dasharray="3 4"/></svg><span>VALENT<small>Estacionamentos</small></span></a><a class="back" href="/">← Voltar ao site</a></div></header>
+  <main class="shell">
+    <section id="login-view" class="card login" aria-labelledby="login-title">
+      <div class="eyebrow">Acesso restrito</div><h1 class="title" id="login-title">Área administrativa</h1><p class="intro">Entre com a conta autorizada para consultar os cadastros recebidos pelo site.</p>
+      <form id="login-form">
+        <div class="field"><label for="email">E-mail</label><input id="email" name="email" type="email" autocomplete="username" required></div>
+        <div class="field"><label for="password">Senha</label><input id="password" name="password" type="password" autocomplete="current-password" required></div>
+        <button class="button" id="login-button" type="submit">Entrar</button><p class="status" id="login-status" role="status" aria-live="polite"></p>
+      </form>
+      <div class="privacy">Os dados de clientes só ficam disponíveis para contas liberadas pelo responsável. Visitantes e clientes não têm permissão para consultar esta lista.</div>
+    </section>
+
+    <section id="dashboard-view" class="hidden" aria-labelledby="dashboard-title">
+      <div class="dashboard-head"><div><div class="eyebrow">Atendimento</div><h1 class="title" id="dashboard-title">Cadastros recebidos</h1><p class="intro">Contatos enviados pelo formulário do Valent Estacionamentos.</p></div><button class="button secondary" id="logout-button" type="button">Sair</button></div>
+      <p class="status" id="dashboard-status" role="status" aria-live="polite"></p>
+      <div class="toolbar"><label class="hidden" for="search">Buscar cadastro</label><input class="search" id="search" type="search" placeholder="Buscar por nome, telefone ou interesse"><span class="count" id="count" aria-live="polite"></span></div>
+      <div class="table-wrap"><table class="table"><thead><tr><th>Nome</th><th>WhatsApp</th><th>Veículo</th><th>Interesse</th><th>Recebido em</th></tr></thead><tbody id="leads-body"></tbody></table><div id="empty-state" class="empty hidden">Nenhum cadastro encontrado.</div></div>
+      <p class="footnote">A lista mostra até 200 cadastros mais recentes. Para segurança, a tela permite consulta, sem editar ou excluir os registros.</p>
+    </section>
+  </main>
+  <script>
+    const loginView=document.querySelector('#login-view');
+    const dashboardView=document.querySelector('#dashboard-view');
+    const loginForm=document.querySelector('#login-form');
+    const loginButton=document.querySelector('#login-button');
+    const loginStatus=document.querySelector('#login-status');
+    const dashboardStatus=document.querySelector('#dashboard-status');
+    const leadsBody=document.querySelector('#leads-body');
+    const search=document.querySelector('#search');
+    const count=document.querySelector('#count');
+    const emptyState=document.querySelector('#empty-state');
+    const labels={'estacionamento-avulso':'Estacionamento avulso','mensalista':'Plano mensalista','pernoite':'Pernoite','lava-rapido':'Lava-rápido','outro':'Outro assunto'};
+    let config=null;
+    let leads=[];
+
+    async function getConfig(){
+      const response=await fetch('/api/config');
+      const data=await response.json();
+      if(!response.ok)throw new Error(data.error||'Não foi possível carregar a configuração do sistema.');
+      config=data;
+    }
+    function setStatus(element,message,type=''){element.textContent=message;element.className=`status ${type}`.trim()}
+    function showDashboard(){loginView.classList.add('hidden');dashboardView.classList.remove('hidden')}
+    function showLogin(){dashboardView.classList.add('hidden');loginView.classList.remove('hidden')}
+    function currentSession(){try{return JSON.parse(sessionStorage.getItem('valent_admin_session')||'null')}catch{return null}}
+    function clearSession(){sessionStorage.removeItem('valent_admin_session');leads=[];leadsBody.replaceChildren();showLogin()}
+    function cell(text){const td=document.createElement('td');td.textContent=text||'—';return td}
+    function render(){
+      const query=search.value.trim().toLocaleLowerCase('pt-BR');
+      const filtered=leads.filter(item=>[item.nome,item.telefone,item.veiculo,labels[item.interesse]||item.interesse].join(' ').toLocaleLowerCase('pt-BR').includes(query));
+      leadsBody.replaceChildren();
+      for(const item of filtered){
+        const tr=document.createElement('tr');
+        tr.append(cell(item.nome));
+        const phone=cell('');const phoneLink=document.createElement('a');phoneLink.href=`https://wa.me/${String(item.telefone||'').replace(/\D/g,'')}`;phoneLink.target='_blank';phoneLink.rel='noopener noreferrer';phoneLink.textContent=item.telefone||'—';phoneLink.setAttribute('aria-label',`Abrir WhatsApp de ${item.nome}`);phone.append(phoneLink);tr.append(phone);
+        tr.append(cell(item.veiculo));
+        const interest=cell('');const badge=document.createElement('span');badge.className='interest';badge.textContent=labels[item.interesse]||item.interesse;interest.append(badge);tr.append(interest);
+        const date=item.criado_em?new Intl.DateTimeFormat('pt-BR',{dateStyle:'short',timeStyle:'short'}).format(new Date(item.criado_em)):'—';tr.append(cell(date));
+        leadsBody.append(tr);
+      }
+      count.textContent=`${filtered.length} ${filtered.length===1?'cadastro':'cadastros'}`;
+      emptyState.classList.toggle('hidden',filtered.length>0);
+    }
+    async function loadLeads(session){
+      setStatus(dashboardStatus,'Carregando cadastros…');
+      const headers={apikey:config.key,Authorization:`Bearer ${session.access_token}`};
+      const membership=await fetch(`${config.url}/rest/v1/site_admins?select=user_id&user_id=eq.${encodeURIComponent(session.user.id)}`,{headers});
+      if(membership.status===401){clearSession();setStatus(loginStatus,'Sua sessão expirou. Entre novamente.','error');return}
+      if(!membership.ok)throw new Error('Não foi possível validar seu acesso. Tente novamente.');
+      const admins=await membership.json();
+      if(!admins.length){clearSession();setStatus(loginStatus,'Esta conta ainda não tem autorização administrativa.','error');return}
+      const response=await fetch(`${config.url}/rest/v1/site_leads?select=id,nome,telefone,veiculo,interesse,criado_em&order=criado_em.desc&limit=200`,{headers});
+      if(response.status===401){clearSession();setStatus(loginStatus,'Sua sessão expirou. Entre novamente.','error');return}
+      if(!response.ok)throw new Error('Não foi possível carregar a lista. Tente novamente.');
+      leads=await response.json();
+      showDashboard();render();setStatus(dashboardStatus,leads.length?'Cadastros atualizados.':'Ainda não há cadastros recebidos.',leads.length?'success':'');
+    }
+    loginForm.addEventListener('submit',async event=>{
+      event.preventDefault();loginButton.disabled=true;setStatus(loginStatus,'Verificando acesso…');
+      try{
+        if(!config)await getConfig();
+        const response=await fetch(`${config.url}/auth/v1/token?grant_type=password`,{method:'POST',headers:{'Content-Type':'application/json',apikey:config.key},body:JSON.stringify({email:loginForm.elements.email.value.trim(),password:loginForm.elements.password.value})});
+        const data=await response.json();
+        if(!response.ok)throw new Error(response.status===400?'E-mail ou senha incorretos.':'Não foi possível entrar agora. Tente novamente.');
+        if(!data.access_token||!data.user?.id)throw new Error('A autenticação não retornou uma sessão válida.');
+        sessionStorage.setItem('valent_admin_session',JSON.stringify(data));
+        await loadLeads(data);
+      }catch(error){setStatus(loginStatus,error.message||'Não foi possível conectar ao sistema.','error')}
+      finally{loginButton.disabled=false}
+    });
+    document.querySelector('#logout-button').addEventListener('click',()=>{clearSession();setStatus(loginStatus,'Você saiu da área administrativa.','success')});
+    search.addEventListener('input',render);
+    document.addEventListener('DOMContentLoaded',async()=>{
+      try{await getConfig();const session=currentSession();if(session?.access_token&&session.user?.id){await loadLeads(session)}}
+      catch(error){setStatus(loginStatus,error.message||'Não foi possível conectar ao sistema.','error')}
+    });
+  </script>
+</body>
+</html>
+

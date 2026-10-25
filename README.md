@@ -16,6 +16,7 @@ desenvolvido como Projeto em Sistemas.
 - Site institucional com fotos reais do local, tabela de preços e galeria
 - Indicador de vagas disponíveis em tempo real
 - Cadastro e login de clientes (Supabase Auth)
+- Formulário público de interesse com consentimento e gravação restrita no Supabase
 - **Reserva de vaga online** (carro ou moto), com cálculo automático de disponibilidade
   a partir das reservas já existentes no horário escolhido
 - Histórico de reservas do cliente, com opção de cancelar

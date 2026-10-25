@@ -82,9 +82,9 @@
       for(const item of filtered){
         const tr=document.createElement('tr');
         tr.append(cell(item.nome));
-        const phone=cell('');const phoneLink=document.createElement('a');phoneLink.href=`https://wa.me/${String(item.telefone||'').replace(/\D/g,'')}`;phoneLink.target='_blank';phoneLink.rel='noopener noreferrer';phoneLink.textContent=item.telefone||'—';phoneLink.setAttribute('aria-label',`Abrir WhatsApp de ${item.nome}`);phone.append(phoneLink);tr.append(phone);
+        const phone=document.createElement('td');const phoneLink=document.createElement('a');phoneLink.href=`https://wa.me/${String(item.telefone||'').replace(/\D/g,'')}`;phoneLink.target='_blank';phoneLink.rel='noopener noreferrer';phoneLink.textContent=item.telefone||'';phoneLink.setAttribute('aria-label',`Abrir WhatsApp de ${item.nome}`);phone.append(phoneLink);tr.append(phone);
         tr.append(cell(item.veiculo));
-        const interest=cell('');const badge=document.createElement('span');badge.className='interest';badge.textContent=labels[item.interesse]||item.interesse;interest.append(badge);tr.append(interest);
+        const interest=document.createElement('td');const badge=document.createElement('span');badge.className='interest';badge.textContent=labels[item.interesse]||item.interesse;interest.append(badge);tr.append(interest);
         const date=item.criado_em?new Intl.DateTimeFormat('pt-BR',{dateStyle:'short',timeStyle:'short'}).format(new Date(item.criado_em)):'—';tr.append(cell(date));
         leadsBody.append(tr);
       }

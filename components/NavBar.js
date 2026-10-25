@@ -6,6 +6,7 @@ import { IconWhatsapp } from './icons';
 const LINKS = [
   { href: '#servicos', label: 'Serviços' },
   { href: '#precos', label: 'Preços' },
+  { href: '#cadastro', label: 'Cadastro' },
   { href: '#faq', label: 'Dúvidas' },
   { href: '#localizacao', label: 'Localização' },
 ];

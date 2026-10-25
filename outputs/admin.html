@@ -126,7 +126,7 @@
         if(!config)await getConfig();
         const email=loginForm.elements.email.value.trim();
         if(!email){setStatus(loginStatus,'Informe seu e-mail para receber o link de recuperação.','error');loginForm.elements.email.focus();return}
-        const redirectTo=`${location.origin}/admin?recovery=1`;
+        const redirectTo=`${location.origin}/admin`;
         const response=await fetch(`${config.url}/auth/v1/recover?redirect_to=${encodeURIComponent(redirectTo)}`,{method:'POST',headers:{'Content-Type':'application/json',apikey:config.key},body:JSON.stringify({email})});
         if(response.ok){setStatus(loginStatus,'Se o e-mail estiver cadastrado, enviaremos um link para criar sua senha. Verifique sua caixa de entrada e o spam.','success');return}
         const error=await response.json().catch(()=>({}));
@@ -153,7 +153,7 @@
         const hash=new URLSearchParams(location.hash.slice(1));
         const recoveryError=hash.get('error_description')||hash.get('error');
         if(hash.get('type')==='recovery'&&hash.get('access_token')){
-          recoveryAccessToken=hash.get('access_token');loginView.classList.add('hidden');resetView.classList.remove('hidden');history.replaceState(null,'',`${location.pathname}?recovery=1`);
+          recoveryAccessToken=hash.get('access_token');loginView.classList.add('hidden');resetView.classList.remove('hidden');history.replaceState(null,'',location.pathname);
         }else if(recoveryError){setStatus(loginStatus,'O link expirou ou não pôde ser validado. Solicite um novo link de recuperação.','error');history.replaceState(null,'',location.pathname)}
         await getConfig();
         if(!recoveryAccessToken){const session=currentSession();if(session?.access_token&&session.user?.id){await loadLeads(session)}}

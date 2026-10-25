@@ -3,7 +3,7 @@
 Sistema web para o **Valent Estacionamentos** (R. Cavour, 329 — Vila Prudente, São Paulo),
 desenvolvido como Projeto em Sistemas.
 
-🔗 **Site publicado:** https://estacionamento-v2.vercel.app
+🔗 **Site publicado:** https://estacionamento-v2.vercel.app (landing page publicada a partir de `outputs/`)
 🎥 **Vídeo de apresentação:** _(coloque aqui o link do YouTube)_
 
 ## Integrantes do grupo

@@ -25,3 +25,5 @@ As variáveis `NEXT_PUBLIC_SUPABASE_URL` e `NEXT_PUBLIC_SUPABASE_ANON_KEY` devem
 
 O usuário precisa ter uma conta no Supabase Auth e ser incluído por um responsável na tabela privada `public.site_admins`. O painel não cria administradores nem permite alteração ou exclusão dos cadastros. A RLS autoriza a leitura de `site_leads` apenas para membros dessa tabela.
 
+O link **Esqueci ou ainda não tenho uma senha** envia a recuperação para o e-mail informado. O retorno `https://estacionamento-v2.vercel.app/admin` deve constar em Authentication → URL Configuration → Redirect URLs no Supabase.
+

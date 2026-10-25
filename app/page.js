@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabaseClient';
 import NavBar from '@/components/NavBar';
 import FAQ from '@/components/FAQ';
+import ContactCapture from '@/components/ContactCapture';
 import ParkingScene from '@/components/ParkingScene';
 import {
   IconAvulso,
@@ -217,6 +218,24 @@ export default function Home() {
         </div>
         <p className="text-xs text-chalk/40 mt-4">Lavagem de moto: consulte disponibilidade e valor.</p>
         <p className="text-xs text-chalk/30 mt-8 font-mono">Não nos responsabilizamos por objetos deixados dentro dos veículos.</p>
+      </section>
+
+      {/* CADASTRO DE INTERESSE */}
+      <section id="cadastro" className="border-y border-asphalt-line bg-asphalt-soft">
+        <div className="max-w-5xl mx-auto px-6 py-20 grid md:grid-cols-2 gap-10 items-start">
+          <div>
+            <h2 className="font-display text-2xl uppercase mb-2">Quer estacionar com o Valent?</h2>
+            <div className="road-divider w-24 mb-8" />
+            <p className="text-chalk/70 leading-relaxed mb-6">
+              Deixe seu nome e WhatsApp para a equipe entrar em contato sobre estacionamento, mensalidade,
+              pernoite ou lava-rápido.
+            </p>
+            <p className="text-sm text-chalk/50">
+              Já quer criar uma conta e reservar vagas? <a href="/cadastro" className="text-signal underline underline-offset-4">Faça seu cadastro de cliente</a>.
+            </p>
+          </div>
+          <ContactCapture />
+        </div>
       </section>
 
       {/* EXPERIÊNCIA E CONFIANÇA */}

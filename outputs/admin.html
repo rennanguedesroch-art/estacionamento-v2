@@ -11,6 +11,7 @@
     .button{font-family:inherit}
     .text-button{display:block;min-height:48px;margin-top:8px;padding:8px 0;border:0;background:transparent;color:var(--yellow);font:inherit;text-decoration:underline;text-underline-offset:4px;cursor:pointer}
     .text-button:focus-visible{outline:3px solid var(--yellow);outline-offset:3px;border-radius:4px}
+    .list-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:24px 0 0}.filter-tab{min-height:46px;padding:0 18px;background:#171814;border:1px solid var(--line);border-radius:999px;color:var(--muted);font:inherit;cursor:pointer}.filter-tab.active{border-color:var(--yellow);color:#171811;background:var(--yellow);font-weight:750}.filter-tab span{margin-left:8px;font-size:.82em}.record-badge{display:inline-flex;align-items:center;margin-left:9px;padding:3px 9px;border:1px solid transparent;border-radius:999px;font-size:.72rem;line-height:1.3;font-weight:750;white-space:nowrap}.record-badge.new{background:#c4eb7020;border-color:#c4eb7070;color:#d4f49a}.record-badge.old{background:#ffffff0b;border-color:#ffffff28;color:#c8c9bc}.record-badge.expired{background:#ff9b8218;border-color:#ff9b8260;color:#ffb5a2}.table{min-width:1040px}.small-action{min-height:38px;padding:0 11px;border:1px solid var(--line);border-radius:6px;background:#20211c;color:var(--ink);font:inherit;font-size:.82rem;cursor:pointer}.small-action:hover{border-color:var(--yellow);color:var(--yellow)}.small-action.danger:hover{border-color:var(--red);color:var(--red)}.small-action:disabled{opacity:.55;cursor:wait}.row-actions{white-space:nowrap}.row-actions .small-action+.small-action{margin-left:6px}.edit-dialog{width:min(540px,calc(100% - 28px));max-height:min(90vh,850px);padding:0;border:1px solid var(--line);border-radius:12px;background:var(--panel);color:var(--ink);box-shadow:0 30px 100px #000a}.edit-dialog::backdrop{background:#000a;backdrop-filter:blur(4px)}.edit-card{padding:clamp(20px,4vw,32px);overflow:auto}.edit-card h2{font-size:1.6rem;margin:8px 0 20px}.edit-card .field{margin:14px 0}.edit-card select{width:100%;height:48px;border:1px solid #45463a;border-radius:7px;background:#12130f;color:var(--ink);padding:0 12px;font:inherit}.edit-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:18px}@media(max-width:640px){.list-tabs{margin-top:18px}.filter-tab{flex:1;padding:0 10px}.edit-actions{flex-direction:column-reverse}.edit-actions .button{width:100%}}
   </style>
 </head>
 <body>
@@ -38,10 +39,12 @@
     <section id="dashboard-view" class="hidden" aria-labelledby="dashboard-title">
       <div class="dashboard-head"><div><div class="eyebrow">Atendimento</div><h1 class="title" id="dashboard-title">Cadastros recebidos</h1><p class="intro">Contatos enviados pelo formulário do Valent Estacionamentos.</p></div><button class="button secondary" id="logout-button" type="button">Sair</button></div>
       <p class="status" id="dashboard-status" role="status" aria-live="polite"></p>
-      <div class="toolbar"><label class="hidden" for="search">Buscar cadastro</label><input class="search" id="search" type="search" placeholder="Buscar por nome, telefone ou interesse"><span class="count" id="count" aria-live="polite"></span></div>
-      <div class="table-wrap"><table class="table"><thead><tr><th>Nome</th><th>WhatsApp</th><th>Veículo</th><th>Interesse</th><th>Recebido em</th></tr></thead><tbody id="leads-body"></tbody></table><div id="empty-state" class="empty hidden">Nenhum cadastro encontrado.</div></div>
-      <p class="footnote">A lista mostra até 200 cadastros mais recentes. Para segurança, a tela permite consulta, sem editar ou excluir os registros.</p>
+      <div class="list-tabs" role="group" aria-label="Status dos cadastros"><button type="button" class="filter-tab active" data-view="active" aria-pressed="true">Ativos <span id="active-count">0</span></button><button type="button" class="filter-tab" data-view="expired" aria-pressed="false">Expirados <span id="expired-count">0</span></button></div>
+      <div class="toolbar"><label class="hidden" for="search">Buscar cadastro</label><input class="search" id="search" type="search" placeholder="Buscar por nome, WhatsApp, placa ou interesse"><span class="count" id="count" aria-live="polite"></span></div>
+      <div class="table-wrap"><table class="table"><thead><tr><th>Cliente</th><th>WhatsApp</th><th>Placa</th><th>Veículo</th><th>Interesse</th><th>Recebido em</th><th>Ações</th></tr></thead><tbody id="leads-body"></tbody></table><div id="empty-state" class="empty hidden">Nenhum cadastro nesta lista.</div></div>
+      <p class="footnote">Cadastros com mais de 7 dias aparecem em Expirados. Eles ficam guardados até serem excluídos. Você pode editar os dados ou remover um cadastro.</p>
     </section>
+    <dialog id="edit-dialog" class="edit-dialog" aria-labelledby="edit-title"><form id="edit-form" class="edit-card"><div class="eyebrow">Dados do cadastro</div><h2 id="edit-title">Editar cliente</h2><div class="field"><label for="edit-name">Nome</label><input id="edit-name" name="nome" maxlength="120" required></div><div class="field"><label for="edit-phone">WhatsApp</label><input id="edit-phone" name="telefone" type="tel" maxlength="24" required></div><div class="field"><label for="edit-plate">Placa do veículo</label><input id="edit-plate" name="placa" maxlength="8" autocomplete="off" autocapitalize="characters" placeholder="ABC1D23"></div><div class="field"><label for="edit-vehicle">Veículo</label><input id="edit-vehicle" name="veiculo" maxlength="80" placeholder="Ex.: carro, moto, SUV"></div><div class="field"><label for="edit-interest">Interesse</label><select id="edit-interest" name="interesse" required><option value="estacionamento-avulso">Estacionamento avulso</option><option value="mensalista">Plano mensalista</option><option value="pernoite">Pernoite</option><option value="lava-rapido">Lava-rápido</option><option value="outro">Outro assunto</option></select></div><p class="status" id="edit-status" role="status" aria-live="polite"></p><div class="edit-actions"><button class="button secondary" type="button" id="cancel-edit">Cancelar</button><button class="button" type="submit" id="save-edit">Salvar alterações</button></div></form></dialog>
   </main>
   <script>
     const loginView=document.querySelector('#login-view');
@@ -58,10 +61,17 @@
     const search=document.querySelector('#search');
     const count=document.querySelector('#count');
     const emptyState=document.querySelector('#empty-state');
+    const activeCount=document.querySelector('#active-count');
+    const expiredCount=document.querySelector('#expired-count');
+    const editDialog=document.querySelector('#edit-dialog');
+    const editForm=document.querySelector('#edit-form');
+    const editStatus=document.querySelector('#edit-status');
     const labels={'estacionamento-avulso':'Estacionamento avulso','mensalista':'Plano mensalista','pernoite':'Pernoite','lava-rapido':'Lava-rápido','outro':'Outro assunto'};
     let config=null;
     let leads=[];
     let recoveryAccessToken=null;
+    let viewMode='active';
+    let editingLeadId=null;
 
     async function getConfig(){
       const response=await fetch('/api/config');
@@ -75,22 +85,36 @@
     function currentSession(){try{return JSON.parse(sessionStorage.getItem('valent_admin_session')||'null')}catch{return null}}
     function clearSession(){sessionStorage.removeItem('valent_admin_session');leads=[];leadsBody.replaceChildren();showLogin()}
     function cell(text){const td=document.createElement('td');td.textContent=text||'—';return td}
+    const expirationMs=7*24*60*60*1000;
+    function isExpired(item){const created=Date.parse(item.criado_em||'');return Number.isFinite(created)&&Date.now()-created>=expirationMs}
+    function leadBadge(item){const created=new Date(item.criado_em||'');if(!Number.isFinite(created.getTime()))return null;const now=new Date();if(created.getFullYear()===now.getFullYear()&&created.getMonth()===now.getMonth()&&created.getDate()===now.getDate())return {text:'Novo',kind:'new'};if(Date.now()-created.getTime()>2*24*60*60*1000)return {text:'Antigo',kind:'old'};return null}
+    function actionButton(text,className,action,item,label){const button=document.createElement('button');button.type='button';button.className=className;button.textContent=text;button.dataset.action=action;button.dataset.id=item.id;button.setAttribute('aria-label',label);return button}
     function render(){
-      const query=search.value.trim().toLocaleLowerCase('pt-BR');
-      const filtered=leads.filter(item=>[item.nome,item.telefone,item.veiculo,labels[item.interesse]||item.interesse].join(' ').toLocaleLowerCase('pt-BR').includes(query));
-      leadsBody.replaceChildren();
+      const query=search.value.trim().toLocaleLowerCase('pt-BR');const expired=leads.filter(isExpired);const active=leads.filter(item=>!isExpired(item));
+      activeCount.textContent=String(active.length);expiredCount.textContent=String(expired.length);
+      document.querySelectorAll('.filter-tab').forEach(button=>{const selected=button.dataset.view===viewMode;button.classList.toggle('active',selected);button.setAttribute('aria-pressed',String(selected))});
+      const source=viewMode==='expired'?expired:active;const filtered=source.filter(item=>[item.nome,item.telefone,item.placa,item.veiculo,labels[item.interesse]||item.interesse].join(' ').toLocaleLowerCase('pt-BR').includes(query));leadsBody.replaceChildren();
       for(const item of filtered){
-        const tr=document.createElement('tr');
-        tr.append(cell(item.nome));
-        const phone=document.createElement('td');const phoneLink=document.createElement('a');phoneLink.href=`https://wa.me/${String(item.telefone||'').replace(/\D/g,'')}`;phoneLink.target='_blank';phoneLink.rel='noopener noreferrer';phoneLink.textContent=item.telefone||'';phoneLink.setAttribute('aria-label',`Abrir WhatsApp de ${item.nome}`);phone.append(phoneLink);tr.append(phone);
-        tr.append(cell(item.veiculo));
-        const interest=document.createElement('td');const badge=document.createElement('span');badge.className='interest';badge.textContent=labels[item.interesse]||item.interesse;interest.append(badge);tr.append(interest);
-        const date=item.criado_em?new Intl.DateTimeFormat('pt-BR',{dateStyle:'short',timeStyle:'short'}).format(new Date(item.criado_em)):'—';tr.append(cell(date));
-        leadsBody.append(tr);
+        const tr=document.createElement('tr');const nameCell=document.createElement('td');const name=document.createElement('span');name.textContent=item.nome||'—';nameCell.append(name);const badgeInfo=viewMode==='expired'?{text:'Expirado',kind:'expired'}:leadBadge(item);if(badgeInfo){const badge=document.createElement('span');badge.className='record-badge '+badgeInfo.kind;badge.textContent=badgeInfo.text;nameCell.append(badge)}tr.append(nameCell);
+        const phone=document.createElement('td');const phoneLink=document.createElement('a');phoneLink.href=`https://wa.me/${String(item.telefone||'').replace(/\D/g,'')}`;phoneLink.target='_blank';phoneLink.rel='noopener noreferrer';phoneLink.textContent=item.telefone||'—';phoneLink.setAttribute('aria-label',`Abrir WhatsApp de ${item.nome}`);phone.append(phoneLink);tr.append(phone);tr.append(cell(item.placa));tr.append(cell(item.veiculo));
+        const interest=document.createElement('td');const interestBadge=document.createElement('span');interestBadge.className='interest';interestBadge.textContent=labels[item.interesse]||item.interesse;interest.append(interestBadge);tr.append(interest);
+        const date=item.criado_em?new Intl.DateTimeFormat('pt-BR',{dateStyle:'short',timeStyle:'short'}).format(new Date(item.criado_em)):'—';tr.append(cell(date));const actions=document.createElement('td');actions.className='row-actions';actions.append(actionButton('Editar','small-action','edit',item,`Editar cadastro de ${item.nome}`),actionButton('Excluir','small-action danger','delete',item,`Excluir cadastro de ${item.nome}`));tr.append(actions);leadsBody.append(tr);
       }
-      count.textContent=`${filtered.length} ${filtered.length===1?'cadastro':'cadastros'}`;
-      emptyState.classList.toggle('hidden',filtered.length>0);
+      count.textContent=`${filtered.length} ${filtered.length===1?'cadastro':'cadastros'}`;emptyState.classList.toggle('hidden',filtered.length>0);
     }
+    function openEdit(item){editingLeadId=item.id;editForm.elements.nome.value=item.nome||'';editForm.elements.telefone.value=item.telefone||'';editForm.elements.placa.value=item.placa||'';editForm.elements.veiculo.value=item.veiculo||'';editForm.elements.interesse.value=item.interesse||'outro';setStatus(editStatus,'');editDialog.showModal();editForm.elements.nome.focus()}
+    document.querySelectorAll('.filter-tab').forEach(button=>button.addEventListener('click',()=>{viewMode=button.dataset.view;render()}));
+    leadsBody.addEventListener('click',async event=>{
+      const button=event.target.closest('button[data-action]');if(!button)return;const item=leads.find(lead=>String(lead.id)===button.dataset.id);if(!item)return;if(button.dataset.action==='edit'){openEdit(item);return}
+      if(button.dataset.action==='delete'){if(!window.confirm(`Excluir permanentemente o cadastro de ${item.nome}?`))return;button.disabled=true;try{const session=currentSession();const response=await fetch(`${config.url}/rest/v1/site_leads?id=eq.${encodeURIComponent(item.id)}`,{method:'DELETE',headers:{apikey:config.key,Authorization:`Bearer ${session.access_token}`}});if(!response.ok)throw new Error('Não foi possível excluir o cadastro. Tente novamente.');leads=leads.filter(lead=>String(lead.id)!==String(item.id));render();setStatus(dashboardStatus,'Cadastro excluído.','success')}catch(error){setStatus(dashboardStatus,error.message||'Não foi possível excluir o cadastro.','error');button.disabled=false}}
+    });
+    document.querySelector('#cancel-edit').addEventListener('click',()=>editDialog.close());
+    editDialog.addEventListener('click',event=>{if(event.target===editDialog)editDialog.close()});
+    editForm.addEventListener('submit',async event=>{
+      event.preventDefault();const session=currentSession();const plate=editForm.elements.placa.value.trim().toUpperCase().replace(/[\s-]/g,'');if(plate&&!/^[A-Z0-9]{7}$/.test(plate)){setStatus(editStatus,'Informe uma placa válida com 7 caracteres.','error');return}
+      const changes={nome:editForm.elements.nome.value.trim(),telefone:editForm.elements.telefone.value.trim(),placa:plate||null,veiculo:editForm.elements.veiculo.value.trim()||null,interesse:editForm.elements.interesse.value};if(changes.nome.length<2||changes.telefone.replace(/\D/g,'').length<10){setStatus(editStatus,'Confira o nome e informe um WhatsApp válido com DDD.','error');return}
+      const saveButton=document.querySelector('#save-edit');saveButton.disabled=true;setStatus(editStatus,'Salvando alterações…');try{const response=await fetch(`${config.url}/rest/v1/site_leads?id=eq.${encodeURIComponent(editingLeadId)}`,{method:'PATCH',headers:{apikey:config.key,Authorization:`Bearer ${session.access_token}`,'Content-Type':'application/json',Prefer:'return=representation'},body:JSON.stringify(changes)});const data=await response.json().catch(()=>[]);if(!response.ok)throw new Error('Não foi possível salvar as alterações. Verifique os dados e tente novamente.');if(!data.length)throw new Error('O cadastro não foi alterado. Confirme se sua conta ainda tem acesso administrativo.');leads=leads.map(item=>String(item.id)===String(editingLeadId)?data[0]:item);editDialog.close();render();setStatus(dashboardStatus,'Cadastro atualizado.','success')}catch(error){setStatus(editStatus,error.message||'Não foi possível salvar as alterações.','error')}finally{saveButton.disabled=false}
+    });
     async function loadLeads(session){
       setStatus(dashboardStatus,'Carregando cadastros…');
       const headers={apikey:config.key,Authorization:`Bearer ${session.access_token}`};
@@ -99,7 +123,7 @@
       if(!membership.ok)throw new Error('Não foi possível validar seu acesso. Tente novamente.');
       const admins=await membership.json();
       if(!admins.length){clearSession();setStatus(loginStatus,'Esta conta ainda não tem autorização administrativa.','error');return}
-      const response=await fetch(`${config.url}/rest/v1/site_leads?select=id,nome,telefone,veiculo,interesse,criado_em&order=criado_em.desc&limit=200`,{headers});
+      const response=await fetch(`${config.url}/rest/v1/site_leads?select=id,nome,telefone,placa,veiculo,interesse,criado_em&order=criado_em.desc&limit=1000`,{headers});
       if(response.status===401){clearSession();setStatus(loginStatus,'Sua sessão expirou. Entre novamente.','error');return}
       if(!response.ok)throw new Error('Não foi possível carregar a lista. Tente novamente.');
       leads=await response.json();
@@ -163,4 +187,5 @@
   </script>
 </body>
 </html>
+
 

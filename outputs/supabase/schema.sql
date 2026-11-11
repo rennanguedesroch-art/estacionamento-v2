@@ -4,15 +4,18 @@ create table if not exists public.site_leads (
   id uuid primary key default gen_random_uuid(),
   nome text not null check (char_length(btrim(nome)) between 2 and 120),
   telefone text not null check (char_length(btrim(telefone)) between 10 and 24),
+  placa text check (placa is null or char_length(btrim(placa)) <= 8),
   veiculo text check (veiculo is null or char_length(btrim(veiculo)) <= 80),
   interesse text not null check (interesse in ('estacionamento-avulso', 'mensalista', 'pernoite', 'lava-rapido', 'outro')),
   consentimento boolean not null check (consentimento is true),
   criado_em timestamptz not null default now()
 );
 
+alter table public.site_leads add column if not exists placa text check (placa is null or char_length(btrim(placa)) <= 8);
+
 alter table public.site_leads enable row level security;
 revoke all on table public.site_leads from public, anon, authenticated;
-grant insert (nome, telefone, veiculo, interesse, consentimento) on public.site_leads to anon;
+grant insert (nome, telefone, placa, veiculo, interesse, consentimento) on public.site_leads to anon;
 drop policy if exists "Anon envia interesse pelo site" on public.site_leads;
 create policy "Anon envia interesse pelo site" on public.site_leads
   for insert to anon with check (consentimento is true);
@@ -35,4 +38,18 @@ create policy "Admins consultam cadastros do site" on public.site_leads
   for select to authenticated using (
     exists (select 1 from public.site_admins where site_admins.user_id = auth.uid())
   );
+
+grant update (nome, telefone, placa, veiculo, interesse) on public.site_leads to authenticated;
+drop policy if exists "Admins atualizam cadastros do site" on public.site_leads;
+create policy "Admins atualizam cadastros do site" on public.site_leads
+  for update to authenticated
+  using (exists (select 1 from public.site_admins where site_admins.user_id = (select auth.uid())))
+  with check (exists (select 1 from public.site_admins where site_admins.user_id = (select auth.uid())));
+
+grant delete on table public.site_leads to authenticated;
+drop policy if exists "Admins excluem cadastros do site" on public.site_leads;
+create policy "Admins excluem cadastros do site" on public.site_leads
+  for delete to authenticated
+  using (exists (select 1 from public.site_admins where site_admins.user_id = (select auth.uid())));
+
 
